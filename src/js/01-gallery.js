@@ -4,7 +4,9 @@ import { galleryItems } from './gallery-items';
 
 import SimpleLightbox from "simplelightbox";
 
-console.log(galleryItems);
+//console.log(galleryItems);
+
+console.log(SimpleLightbox);
 
 const divGallery = document.querySelector('.gallery');
 
@@ -44,7 +46,7 @@ const onImageClick = function (event) {
         
           event.preventDefault();
           
-          instance = basicLightbox.create(`<img src="${event.target.dataset.source}" width="800" height="600">`);
+          instance = new SimpleLightbox(`<img src="${event.target.dataset.source}" width="800" height="600">`);
                   
           instance.show();
 
