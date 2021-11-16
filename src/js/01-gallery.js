@@ -1,63 +1,21 @@
+import SimpleLightbox from "simplelightbox";
 // Add imports above this line
 import { galleryItems } from './gallery-items';
 // Change code below this line
 
-import SimpleLightbox from "simplelightbox";
+const ulGallery = document.querySelector('.gallery');
 
-//console.log(galleryItems);
-
-console.log(SimpleLightbox);
-
-const divGallery = document.querySelector('.gallery');
-
-const markup = galleryItems.map(function ({ preview, original, description}) {
-return `<div class="gallery__item">
-  <a class="gallery__link" href="large-image.jpg">
-    <img
-      class="gallery__image"
-      src=${preview}
-      data-source=${original}
-      alt=${description}
-    />
-  </a>
-</div>`
+const markup = galleryItems.map(function ({ preview, original, description }) {
+    
+    return `<li><a class="gallery__item" href="${original}"><img class="gallery__image" src="${preview}" alt="${description}" /></a></li>`
 }
 ).join("");
 
-divGallery.insertAdjacentHTML("beforeend", markup);
+ulGallery.insertAdjacentHTML("beforeend", markup);
 
-let instance;
-
-function onEscPress (event) {
-                      
-      if (event.key === 'Escape') {
-
-        instance.close();
-
-        document.removeEventListener('keydown', onEscPress);
-                        
-      };
-
-};
-   
-const onImageClick = function (event) {
-
-      if (event.target.nodeName === 'IMG') {
-        
-          event.preventDefault();
-          
-          instance = new SimpleLightbox(`<img src="${event.target.dataset.source}" width="800" height="600">`);
-                  
-          instance.show();
-
-          document.addEventListener('keydown', onEscPress);
-          
-          return;
-
-      };
-
-document.removeEventListener('keydown', onEscPress);
-
-};
-
-window.addEventListener('click', onImageClick);
+new SimpleLightbox('.gallery a', {
+    captionsData: 'alt',
+    captionDelay: 250,
+    captionPosition: 'bottom',
+}
+);
